@@ -1,0 +1,16 @@
+newmtl FloorMaterial
+  Ns 10.0000
+  Ni 1.5000
+  d 1.0000
+  Tr 0.0000
+  Tf 1.0000 1.0000 1.0000 
+  illum 2
+  Ka 0.0000 0.0000 0.0000
+  Kd 0.5880 0.5880 0.5880
+  Ks 0.0000 0.0000 0.0000
+  Ke 0.0000 0.0000 0.0000
+  
+  map_Kd ground_texture/textures/floor_tiles_06_diff_2k.jpg
+  map_Ks ground_texture/textures/floor_tiles_06_disp_2k.jpg
+  map_Ns ground_texture/textures/floor_tiles_06_rough_2k.jpg
+  bump ground_texture/textures/floor_tiles_06_nor_gl_2k.exr
