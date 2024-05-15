@@ -132,7 +132,7 @@ class BaseAviary(gym.Env):
             os.makedirs(os.path.dirname(self.ONBOARD_IMG_PATH), exist_ok=True)
         self.VISION_ATTR = vision_attributes
         if self.VISION_ATTR:
-            self.IMG_RES = np.array([64, 48])
+            self.IMG_RES = np.array([128, 128])
             self.IMG_FRAME_PER_SEC = 24
             self.IMG_CAPTURE_FREQ = int(self.PYB_FREQ/self.IMG_FRAME_PER_SEC)
             self.rgb = np.zeros(((self.NUM_DRONES, self.IMG_RES[1], self.IMG_RES[0], 4)))
@@ -149,7 +149,7 @@ class BaseAviary(gym.Env):
             #### With debug GUI ########################################
             self.CLIENT = p.connect(p.GUI) # p.connect(p.GUI, options="--opengl2")
             for i in [p.COV_ENABLE_RGB_BUFFER_PREVIEW, p.COV_ENABLE_DEPTH_BUFFER_PREVIEW, p.COV_ENABLE_SEGMENTATION_MARK_PREVIEW]:
-                p.configureDebugVisualizer(i, 0, physicsClientId=self.CLIENT)
+                p.configureDebugVisualizer(i, 0, lightPosition=[0, 0, 30], rgbBackground=[255,255,255], physicsClientId=self.CLIENT)
             p.resetDebugVisualizerCamera(cameraDistance=3,
                                          cameraYaw=-30,
                                          cameraPitch=-30,
@@ -482,7 +482,7 @@ class BaseAviary(gym.Env):
         p.setAdditionalSearchPath(pybullet_data.getDataPath(), physicsClientId=self.CLIENT)
         #### Load ground plane, drone and obstacles models #########
         self.PLANE_ID = p.loadURDF(pkg_resources.resource_filename('gym_pybullet_drones', 'assets/envmap/plane.urdf'), physicsClientId=self.CLIENT)
-        # self.SKY_ID = p.loadURDF(pkg_resources.resource_filename('gym_pybullet_drones', 'assets/envmap/sky.urdf'), physicsClientId=self.CLIENT)
+        self.SKY_ID = p.loadURDF(pkg_resources.resource_filename('gym_pybullet_drones', 'assets/envmap/sky.urdf'), physicsClientId=self.CLIENT)
 
         self.DRONE_IDS = np.array([p.loadURDF(pkg_resources.resource_filename('gym_pybullet_drones', 'assets/'+self.URDF),
                                               self.INIT_XYZS[i,:],
