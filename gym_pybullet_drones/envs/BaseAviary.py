@@ -473,6 +473,10 @@ class BaseAviary(gym.Env):
         self.rpy = np.zeros((self.NUM_DRONES, 3))
         self.vel = np.zeros((self.NUM_DRONES, 3))
         self.ang_v = np.zeros((self.NUM_DRONES, 3))
+
+        self.drone_view_matrices = np.zeros((self.NUM_DRONES, 4, 4))
+        self.drone_projection_matrices = np.zeros((self.NUM_DRONES, 4, 4))
+
         if self.PHYSICS == Physics.DYN:
             self.rpy_rates = np.zeros((self.NUM_DRONES, 3))
         #### Set PyBullet's parameters #############################
@@ -612,6 +616,14 @@ class BaseAviary(gym.Env):
                                                  flags=SEG_FLAG,
                                                  physicsClientId=self.CLIENT
                                                  )
+        
+        
+        view_mat = np.array(DRONE_CAM_VIEW).reshape(4, 4)
+        pro_mat = np.array(DRONE_CAM_PRO).reshape(4, 4)
+        
+        self.drone_view_matrices[nth_drone] = view_mat
+        self.drone_projection_matrices[nth_drone] = pro_mat
+
         rgb = np.reshape(rgb, (h, w, 4))
         dep = np.reshape(dep, (h, w))
         seg = np.reshape(seg, (h, w))

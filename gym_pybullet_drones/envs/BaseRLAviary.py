@@ -300,7 +300,7 @@ class BaseRLAviary(BaseAviary):
                     if self.RECORD:
                         self._exportImage(img_type=ImageType.RGB,
                                           img_input=self.rgb[i],
-                                          path=self.ONBOARD_IMG_PATH+"drone_"+str(i),
+                                          path=self.ONBOARD_IMG_PATH+"/drone_"+str(i),
                                           frame_num=int(self.step_counter/self.IMG_CAPTURE_FREQ)
                                           )
             return np.array([self.rgb[i] for i in range(self.NUM_DRONES)]).astype('float32')
